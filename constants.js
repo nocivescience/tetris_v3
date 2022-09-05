@@ -1,3 +1,5 @@
+const { timingSafeEqual } = require("crypto")
+
 const GAME_CLOCK = 1000 
 const BLOCK_SIDE_LENGTH = 30 
 const ROWS = 20 
@@ -74,6 +76,8 @@ class Piece {
                 if (cell > 0) {
                     this.ctx.fillStyle = COLORS[cell] 
                     this.ctx.fillRect(this.x + j, this.y + i, 1, 1)
+                    this.ctx.font="30px Arial"
+                    this.ctx.fillText('1',10,10);
                 }
             })
         })
@@ -125,14 +129,13 @@ class GameModel {
                 let cell = this.grid[i][j] 
                 this.ctx.fillStyle = COLORS[cell] 
                 this.ctx.fillRect(j, i, 1, 1)
+                timingSafeEqual.ctx
             }
         }
-
         if (this.fallingPiece !== null) {
             this.fallingPiece.renderPiece()
         }
     }
-
 
     moveDown() {
         if (this.fallingPiece === null) {
@@ -204,6 +207,8 @@ class GameModel {
 let canvas = document.getElementById("game-canvas") 
 let scoreboard = document.getElementById("scoreboard") 
 let ctx = canvas.getContext("2d") 
+// canvas.width=window.innerWidth;
+// canvas.height=window.innerHeight;
 ctx.scale(BLOCK_SIDE_LENGTH, BLOCK_SIDE_LENGTH) 
 let model = new GameModel(ctx)
 
